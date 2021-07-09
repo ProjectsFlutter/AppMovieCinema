@@ -1,3 +1,4 @@
+import 'package:app_movie_theater/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -16,6 +17,7 @@ class DetailScreen extends StatelessWidget {
               _Overview(),
               _Overview(),
               _Overview(),
+              CastingCard()
             ]),
           )
         ],
