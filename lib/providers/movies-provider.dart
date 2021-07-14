@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_movie_theater/models/models.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +20,7 @@ class MoviesProvider extends ChangeNotifier{
        'page'     : '1'
      });
      final response = await http.get(url);
-     final Map<String, dynamic> decodeData = json.decode(response.body);
-     print( decodeData);
+     final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
+     print( nowPlayingResponse.results[1].title);
   }
 }
