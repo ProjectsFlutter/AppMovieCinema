@@ -1,6 +1,12 @@
+import 'package:app_movie_theater/models/models.dart';
 import 'package:flutter/material.dart';
 
 class MovieSlider extends StatelessWidget {
+  final List<Movie> movies; 
+  final String title;
+
+  const MovieSlider({Key key,this.movies,this.title}): super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,17 +15,17 @@ class MovieSlider extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Text('Populares',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-          ),
+          if(this.title != null)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(this.title, style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+            ),
           SizedBox(height:5),
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (_, int index) => _MoviePoster()
+                itemCount: this.movies.length,
+                itemBuilder: (_, int index) => _MoviePoster(this.movies[index])
             )
           )
         ],
@@ -29,6 +35,9 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
+  final Movie movie;
+  const _MoviePoster(this.movie);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +52,7 @@ class _MoviePoster extends StatelessWidget {
              borderRadius: BorderRadius.circular(20.0),
              child: FadeInImage(
                placeholder: AssetImage('assets/loading.gif'), 
-               image: NetworkImage('https://images-na.ssl-images-amazon.com/images/I/61VnhWzz0WL._AC_.jpg'),
+               image: NetworkImage(this.movie.fullPosterImg),
                width: 130.0,
                height: 190.0,
                fit: BoxFit.cover,
@@ -51,7 +60,7 @@ class _MoviePoster extends StatelessWidget {
            ),
          ),
         SizedBox(height: 2),
-        Text('Lorem lo rem lorem rem lo', maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center)
+        Text(this.movie.title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center)
        ], 
       ),
     );
