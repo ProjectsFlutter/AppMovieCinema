@@ -10,22 +10,27 @@ class HomeScreen extends StatelessWidget {
     final moviesProvider = Provider.of<MoviesProvider>(context);
     
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Movies in cinema'),
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: (){
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0) ,
+        child: AppBar(
+          title: Text('Movies in cinema'),
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: (){
 
-            }
-          )
-        ],
+              }
+            )
+          ],
+        ),
       ),
        body:SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 6.0,),
             CardSwiper(movies: moviesProvider.onDisplayMovies),
+            SizedBox(height: 4.0,),
             MovieSlider(movies: moviesProvider.popularMovies, title: 'Populares!'),
           ],
         ),
