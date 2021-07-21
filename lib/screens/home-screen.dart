@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 6.0,),
             CardSwiper(movies: moviesProvider.onDisplayMovies),
             SizedBox(height: 4.0,),
-            MovieSlider(movies: moviesProvider.popularMovies, title: 'Populares!', onNextPage: moviesProvider.getPopularMovies()),
+            MovieSlider(movies: moviesProvider.popularMovies, title: 'Populares!', onNextPage: ()=> moviesProvider.getPopularMovies()),
           ],
         ),
        ), 
