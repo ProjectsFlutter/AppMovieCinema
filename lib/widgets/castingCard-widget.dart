@@ -32,8 +32,8 @@ class CastingCard extends StatelessWidget {
           // color: Colors.red,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (_, int index) => _CastCard(),
+            itemCount: cast.length,
+            itemBuilder: (_, int index) => _CastCard(cast[index]),
           ),
         );
       },
@@ -41,10 +41,10 @@ class CastingCard extends StatelessWidget {
   }
 }
 
-class CurpertinoActivityIndicator {
-}
-
 class _CastCard extends StatelessWidget {
+  final Cast actor;
+  const _CastCard(this.actor);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,15 +57,14 @@ class _CastCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             child: FadeInImage(
               placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage(
-                  'https://i.pinimg.com/originals/c0/69/dc/c069dc250304c1d526965fb39e6089d6.jpg'),
+              image: NetworkImage(actor.fullProfilePath),
               height: 140.0,
               width: 100.0,
               fit: BoxFit.cover,
             ),
           ),
           SizedBox(height: 5.0),
-          Text('Cast name, first , secound',
+          Text(actor.name,
               style: Theme.of(context).textTheme.bodyText2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
