@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CastingCard extends StatelessWidget {
+  final int movieId;
+  const CastingCard(this.movieId);
+
   @override
   Widget build(BuildContext context) {
     return Container(
