@@ -19,7 +19,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<String> _getJsonData(String endpoint, [int page = 1]) async{
-    var url = Uri.https(_baseUrl, endpoint,{
+    final url = Uri.https(_baseUrl, endpoint,{
       'api_key': _apiKey,
       'language': _languaje, 
       'page': '$page'
@@ -34,6 +34,7 @@ class MoviesProvider extends ChangeNotifier {
     onDisplayMovies = nowPlayingResponse.results;
     notifyListeners();
   }
+
   getPopularMovies() async {
     _popularPage ++;
 
@@ -42,6 +43,7 @@ class MoviesProvider extends ChangeNotifier {
     popularMovies = [...popularMovies,...popularResponse.results];
     notifyListeners();
   }
+
   Future<List<Cast>> getMovieCast(int movieId) async{
      if(movieCast.containsKey(movieId)) return movieCast[movieId];
 
@@ -49,6 +51,18 @@ class MoviesProvider extends ChangeNotifier {
      final creditsResponse = CreditsResponse.fromJson(jsonData);
      movieCast[movieId] = creditsResponse.cast;
      return movieCast[movieId];
+  }
+  
+  Future<List<Movie>> searchMovie(String _query) async{
+    final url = Uri.https(_baseUrl, '3/search/movie',{
+      'api_key': _apiKey,
+      'language': _languaje, 
+      'query': _query
+    });
+    final response = await http.get(url);
+    final searchResponse = SearchResponse.fromJson(response.body);
+    
+    return searchResponse.results;
   }
 }
   
