@@ -5,7 +5,7 @@ class MovieSlider extends StatefulWidget {
   final List<Movie> movies; 
   final String title;
   final Function onNextPage; 
-  const MovieSlider({Key key,this.movies,this.title, this.onNextPage}): super(key: key);
+  const MovieSlider({ Key? key,required this.movies, required this.onNextPage, required this.title}): super(key: key);
 
   @override
   _MovieSliderState createState() => _MovieSliderState();
@@ -73,7 +73,7 @@ class _MoviePoster extends StatelessWidget {
          GestureDetector(
            onTap:() => Navigator.pushNamed(context, 'details', arguments: movie),
            child: Hero(
-             tag: movie.heroId,
+             tag: movie.heroId!,
              child: ClipRRect(
                borderRadius: BorderRadius.circular(20.0),
                child: FadeInImage(

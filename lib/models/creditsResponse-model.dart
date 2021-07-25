@@ -6,9 +6,9 @@ import 'dart:convert';
 
 class CreditsResponse {
   CreditsResponse({
-    this.id,
-    this.cast,
-    this.crew,
+    required this.id,
+    required this.cast,
+    required this.crew,
   });
 
   int id;
@@ -27,17 +27,17 @@ class CreditsResponse {
 
 class Cast {
   Cast({
-    this.adult,
-    this.gender,
-    this.id,
-    this.knownForDepartment,
-    this.name,
-    this.originalName,
-    this.popularity,
+    required this.adult,
+    required this.gender,
+    required this.id,
+    required this.knownForDepartment,
+    required this.name,
+    required this.originalName,
+    required this.popularity,
     this.profilePath,
     this.castId,
     this.character,
-    this.creditId,
+    required this.creditId,
     this.order,
     this.department,
     this.job,
@@ -50,13 +50,13 @@ class Cast {
   String name;
   String originalName;
   double popularity;
-  String profilePath;
-  int castId;
-  String character;
+  String? profilePath;
+  int? castId;
+  String? character;
   String creditId;
-  int order;
-  String department;
-  String job;
+  int? order;
+  String? department;
+  String? job;
 
   get fullProfilePath {
     if (this.profilePath != null) {

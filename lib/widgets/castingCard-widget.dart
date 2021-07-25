@@ -23,7 +23,7 @@ class CastingCard extends StatelessWidget {
             child: CupertinoActivityIndicator(),
           );
         }
-        final List<Cast> cast = snapshot.data;
+        final List<Cast> cast = snapshot.data!;
         
         return Container(
           margin: EdgeInsets.only(bottom: 30.0),

@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context).settings.arguments as Movie;
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     return Scaffold(
       body: CustomScrollView(
@@ -73,7 +73,7 @@ class _PosterAndTitle extends StatelessWidget {
       child: Row(
         children: [
           Hero(
-            tag: movie.heroId,
+            tag: movie.heroId!,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: FadeInImage(

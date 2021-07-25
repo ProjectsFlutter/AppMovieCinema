@@ -2,37 +2,37 @@ import 'dart:convert';
 
 class Movie {
     Movie({
-        this.adult,
+        required this.adult,
         this.backdropPath,
-        this.genreIds,
-        this.id,
-        this.originalLanguage,
-        this.originalTitle,
-        this.overview,
-        this.popularity,
+        required this.genreIds,
+        required this.id,
+        required this.originalLanguage,
+        required this.originalTitle,
+        required this.overview,
+        required this.popularity,
         this.posterPath,
         this.releaseDate,
-        this.title,
-        this.video,
-        this.voteAverage,
-        this.voteCount,
+        required this.title,
+        required this.video,
+        required this.voteAverage,
+        required this.voteCount,
     });
 
     bool adult;
-    String backdropPath;
+    String? backdropPath;
     List<int> genreIds;
     int id;
     String originalLanguage;
     String originalTitle;
     String overview;
     double popularity;
-    String posterPath;
-    String releaseDate;
+    String? posterPath;
+    String? releaseDate;
     String title;
     bool video;
     double voteAverage;
     int voteCount;
-    String heroId;
+    String? heroId;
 
     get  fullPosterImg{
       if(this.posterPath != null){

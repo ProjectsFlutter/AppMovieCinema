@@ -58,7 +58,7 @@ class movieSearchDelegate extends SearchDelegate {
           final movies = snapshot.data;
 
           return ListView.builder(
-            itemCount: movies.length,
+            itemCount: movies!.length,
             itemBuilder:(_, int index)=> _MovieItem(movies[index])
           );
 

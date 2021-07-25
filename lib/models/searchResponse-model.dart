@@ -3,10 +3,10 @@ import 'package:app_movie_theater/models/models.dart';
 
 class SearchResponse {
     SearchResponse({
-        this.page,
-        this.results,
-        this.totalPages,
-        this.totalResults,
+        required this.page,
+        required this.results,
+        required this.totalPages,
+        required this.totalResults,
     });
 
     int page;
