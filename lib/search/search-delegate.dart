@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_movie_theater/models/models.dart';
 import 'package:app_movie_theater/providers/movies-provider.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,19 @@ class movieSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    throw UnimplementedError();
+    if (query.isEmpty) return _emplyContainer();
+
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
+    return FutureBuilder(
+        future: moviesProvider.searchMovie(query),
+        builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
+          if (!snapshot.hasData) return _progressContainer();
+          final movies = snapshot.data;
+          return ListView.builder(
+              itemCount: movies!.length,
+              itemBuilder: (_, int index) => _MovieItem(movies[index]));
+        });
   }
 
   Widget _emplyContainer() {
@@ -44,24 +58,28 @@ class movieSearchDelegate extends SearchDelegate {
     );
   }
 
+  Widget _progressContainer() {
+    return Container(
+      child: Center(child: CircularProgressIndicator()),
+    );
+  }
+
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
     if (query.isEmpty) return _emplyContainer();
 
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    moviesProvider.getSuggestionsByQuery(query);
 
-    return FutureBuilder(
-        future: moviesProvider.searchMovie(query),
+    return StreamBuilder(
+        stream: moviesProvider.suggestionStream,
         builder: (_, AsyncSnapshot<List<Movie>> snapshot) {
-          if(!snapshot.hasData) return _emplyContainer();
+          if (!snapshot.hasData) return _progressContainer();
           final movies = snapshot.data;
-
           return ListView.builder(
-            itemCount: movies!.length,
-            itemBuilder:(_, int index)=> _MovieItem(movies[index])
-          );
-
+              itemCount: movies!.length,
+              itemBuilder: (_, int index) => _MovieItem(movies[index]));
         });
   }
 }
@@ -72,20 +90,19 @@ class _MovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    movie.heroId ="search-${movie.id}";
+    movie.heroId = "search-${movie.id}";
     return ListTile(
       leading: Hero(
         tag: movie.heroId,
         child: FadeInImage(
-          placeholder: AssetImage('assets/no-image.jpg'), 
-          image: NetworkImage(movie.fullPosterImg),
-          width: 50.0,
-          fit:BoxFit.contain
-        ),
+            placeholder: AssetImage('assets/no-image.jpg'),
+            image: NetworkImage(movie.fullPosterImg),
+            width: 50.0,
+            fit: BoxFit.contain),
       ),
       title: Text(movie.title),
       subtitle: Text(movie.originalTitle),
-      onTap: (){
+      onTap: () {
         Navigator.pushNamed(context, 'details', arguments: movie);
       },
     );
